@@ -30,10 +30,10 @@ Addr : <input type = "text" value = "<%=m.getUserAddr() %>" name = "addr"/><br>
 
 Gender : 
 <%if(m.getUserGender().equals("M")){ %>
-	<input type = "radio" name = "gender" value = "M" checked = "checked"/>남
-	<input type = "radio" name = "gender" value = "F" />여<br>
+	<input type = "radio" name = "gender" value = "M"  checked = "checked"/>남
+	<input type = "radio" name = "gender" value = "F" disabled/>여<br>
 <%}else{%>
-	<input type = "radio" name = "gender" value = "M" />남
+	<input type = "radio" name = "gender" value = "M" disabled/>남
 	<input type = "radio" name = "gender" value = "F" checked = "checked"/>여<br>
 <%} %>
 
