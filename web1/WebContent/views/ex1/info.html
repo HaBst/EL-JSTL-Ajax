@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>클라이언트 정보입력</title>
+</head>
+<body>
+
+<form action="/web1/info" method="get">
+성별 : 
+<input type="radio" name="gender" value="남자"> 남자 
+<input type="radio" name="gender" value="여자"> 여자
+<br><br>
+메일 정보 수신 여부 : 
+<input type="radio" name="mailAgree" value="수신"> 수신 
+<input type="radio" name="mailAgree" value="거부"> 거부
+<br><br>
+가입 인사를 작성해주세요.<br>
+<textarea cols="30" rows="3" name="intro"></textarea><br>
+<input type="submit" value="전송">
+<input type="reset" value="취소">
+</form>
+
+
+</body>
+</html>

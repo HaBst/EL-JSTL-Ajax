@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+	function check(){
+		window.open("idCheck.jsp","_black","width=500,height=200");
+	}
+	function back(){
+		history.go(-1);
+	}
+	
+	function submitCheck(){
+		var PW = document.getElementById("userPwd");
+		var PW_re = document.getElementById("userPwd_re");
+		
+		if(PW.value == PW_re.value){			
+			return true;
+		}
+		else{
+			alert("비밀번호를 확인하세요");
+			return false;
+		}
+	}
+	
+	
+</script>
+
+
+<fieldset>
+	<legend>회원가입</legend>
+<form action="joinus.jsp" method="post">
+ID : <input type = "text" name = "userId" id="userId"/>
+<button type = "button" onclick = "check()">ID 중복검사</button><br>
+PW : <input type = "password" name = "userPwd" id = "userPwd"/><br>
+PW_re : <input type = "password" name = "userPwd_re" id = "userPwd_re"/><br>
+NAME : <input type = "text" name = "userName"/><br>
+AGE : <input type = "text" name = "userAge"/><br>
+ADDR : <input type = "text" name = "userAddr"/><br>
+<input type = "submit" value = "회원가입" onclick = "return submitCheck();"/>
+<button type = "button" onclick = "back();">돌아가기</button>
+</form>
+</fieldset>
+
+
+</body>
+</html>

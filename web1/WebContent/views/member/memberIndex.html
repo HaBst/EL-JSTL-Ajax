@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원페이지</title>
+</head>
+<body>
+<!-- JSP를 이용한 MVC1 패턴 CRUD 구현 -->
+<!-- 
+	1. 회원 로그인(Read)
+	2. 회원 가입
+	3. 마이페이지 (회원 정보 수정)
+	4. 회원 탈퇴
+ -->
+ 
+ <h1>로그인</h1>
+<form action ="login.jsp"method="post">
+ID : <input type = "text" name = "userId"/><br>
+PW : <input type = "password" name = "userPw"/><br>
+<input type = "submit" value = "로그인"/>
+<input type = "reset" value = "취소"/>
+<a href = "joinus.html">회원가입</a>
+</form>
+</body>
+</html>
