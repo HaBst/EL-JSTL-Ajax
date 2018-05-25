@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>회원가입</h1>
+<h4>가입할 회원 정보를 입력하세요<br>
+	(*은 필수 입력 항목)
+</h4>
+<form action="/joinus" method = "post">
+Id : <input type = "text" placeholder = "ID를 입력해주세요" name = "userId"/>
+<button onclick="idCheck();">ID중복체크</button><br>
+Pw : <input type = "password" placeholder = "PW를 입력하세요" name = "userPwd"/><br>
+Pw(re) : <input type = "password" placeholder = "PW를 재입력하세요" name = "userPwd_re"/><br>
+Name : <input type = "text" placeholder = "이름을 입력하세요" name = "userName"/><br>
+Age : <input type = "text" placeholder = "나이를 입력하세요" name = "Age"/><br>
+Email : <input type = "email" placeholder = "이메일을 입력하세요" name = "Email"/><br>
+Phone : <input type = "text" placeholder = "핸드폰번호를 입력하세요" name = "Phone"/><br>
+Addr : <input type = "text" placeholder = "주소를 입력하세요" name = "addr"/><br>
+Gender : <input type = "radio" name = "gender" value = "M"/>남
+	<input type = "radio" name = "gender" value = "F"/>여<br>
+취미 : <input type = "text" placeholder = "취미를 입력하세요" name = "hobby"/><br>
+<input type = "submit" value = "회원가입"/>
+<button type = "button" onclick = "back();">취소</button> 
+</form>
+
+</center>
+<script>
+	function back(){
+		history.go(-1);
+	}
+</script>
+</body>
+</html>
