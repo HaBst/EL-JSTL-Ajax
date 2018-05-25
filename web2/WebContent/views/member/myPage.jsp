@@ -8,17 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<script>
-function back(){
-	history.go(-1);
-}
-</script>
 <body>
 <%Member m = (Member)request.getAttribute("userInfo"); %>
 <center>
 <h1>회원가입정보</h1>
 
-<form>
+<form action = "update" method = "post">
 Id : <input type = "text" value = "<%=m.getUserId() %>" name = "userId" readonly/><br>
 Pw : <input type = "password" value = "<%=m.getUserPwd() %>" name = "userPwd"/><br>
 Pw(re) : <input type = "password" value = "<%=m.getUserPwd() %>" name = "userPwd_re"/><br>
@@ -42,8 +37,11 @@ Gender :
 <button type = "button" onclick = "back();">취소</button><br>
 <a href = "/index.jsp">메인페이지로 이동</a>
 </form>
-
 </center>
-
+<script>
+function back(){
+	location.href="/index.jsp";
+}
+</script>
 </body>
 </html>

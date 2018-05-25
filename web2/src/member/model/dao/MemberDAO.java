@@ -142,5 +142,36 @@ public class MemberDAO {
 		
 	}
 
+	public int memberUpdate(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "update member set userpwd=?, age=?, email=?, phone=?, address=?, gender=?, hobby=?"
+				+ "where userid = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setInt(2, m.getUserAge());
+			pstmt.setString(3, m.getUserEmail());
+			pstmt.setString(4, m.getUserPhone());
+			pstmt.setString(5, m.getUserAddr());
+			pstmt.setString(6, m.getUserGender());
+			pstmt.setString(7, m.getUserHobby());
+			pstmt.setString(8, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+				
+		return result;
+	}
+
 
 }

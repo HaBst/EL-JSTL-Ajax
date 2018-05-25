@@ -58,6 +58,20 @@ public class MemberService {
 		return result;
 	}
 
+	public int memberUpdate(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = new MemberDAO().memberUpdate(conn,m);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+		
+		return result;
+	}
+
 
 	
 
