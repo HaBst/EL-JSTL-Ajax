@@ -171,16 +171,17 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int memberDelete(Connection conn,String userId) {
+	public int memberDelete(Connection conn,String userId, String userPwd) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = "delete from member where userid = ?";
+		String query = "delete from member where userid = ? and userpwd = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

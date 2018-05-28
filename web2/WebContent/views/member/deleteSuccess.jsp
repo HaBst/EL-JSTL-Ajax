@@ -10,7 +10,6 @@
 <script>
 	alert("삭제 성공하였습니다.\n5초 후 로그인창으로 이동합니다.");
 	location.href="/index.jsp";
-
 </script>
 <body>
 

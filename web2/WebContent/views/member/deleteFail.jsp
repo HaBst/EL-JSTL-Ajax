@@ -8,10 +8,8 @@
 <title>삭제 에러페이지</title>
 </head>
 <script>
-window.onload = function(){
 	alert("삭제를 실패하였습니다.\n관리자에게 문의하세요\n5초후 로그인창으로 이동합니다.");
 	location.href="/index.jsp";
-}
 </script>
 <body>
 

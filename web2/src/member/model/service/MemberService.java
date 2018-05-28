@@ -72,11 +72,11 @@ public class MemberService {
 		return result;
 	}
 
-	public int memberDelete(String userId) {
+	public int memberDelete(String userId, String userPwd) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = 0;
 		
-		result = new MemberDAO().memberDelete(conn,userId);
+		result = new MemberDAO().memberDelete(conn,userId,userPwd);
 		
 		if(result > 0) {
 			JDBCTemplate.commit(conn);

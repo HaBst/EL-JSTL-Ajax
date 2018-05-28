@@ -56,6 +56,11 @@
 	text-decoration: underline;
 	color:blue;
 	}
+	#dropBtn{
+	cursor:poiinter;
+	text-decoration: underline;
+	color:blue;
+	}
 </style>
 <script>
 function myInfo(){
