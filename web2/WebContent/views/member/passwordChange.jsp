@@ -14,7 +14,7 @@
 		location.href="/index.jsp";
 	}
 </script>
-<form>
+<form action = "change" method = "post">
 비밀번호 : <input type = "password" name = "userPwd"/><br>
 비밀번호 확인 : <input type = "password" name = "userPwd_re"/><br>
 <input type = "submit" value = "변경하기"/>
