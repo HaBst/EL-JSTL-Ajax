@@ -49,6 +49,8 @@
 	</form><br>
 	
 	<%}} %>
+	<br>
+	<a href="/notice">공지사항</a>
 </body>
 <style>
 	#infoBtn{
