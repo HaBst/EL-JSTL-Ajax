@@ -88,6 +88,17 @@ public class MemberService {
 		return result;
 	}
 
+	public boolean changePwdCheck(String userId) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean result = new MemberDAO().changePwdCheck(conn,userId);
+		
+		JDBCTemplate.connclose(conn);
+		
+		return result;
+		
+	}
+
 
 	
 

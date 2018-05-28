@@ -194,5 +194,41 @@ public class MemberDAO {
 		
 	}
 
+	public boolean changePwdCheck(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		boolean result = false;
+		// change_date를 반올림해서 가져옴(가입날짜-마지막 변경날짜)
+		String query = "select floor(sysdate-last_modified) as change_date"
+				+" from member where userid=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			// rset에 결과가 있을때
+			if(rset.next()) {
+				// rset의 change_date가 90이상이라면
+				if(rset.getInt("change_date")>=90) {
+					result = true;
+				}else {
+					result = false;
+				}
+			}
+			System.out.println(rset);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 
 }

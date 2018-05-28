@@ -40,15 +40,24 @@ public class LoginServlet extends HttpServlet {
 		Member m = new MemberService().selectOne(userId,userPwd);
 		//4. 처리 결과에 따라 성공/실패 페이지 리턴
 		if(m != null) {
+			//로그인을 성공했다면? -> 세션 객체 생성하여 정보 저장
 			if(m.getActivation().equals("Y")) {
+				//비밀번호 변경여부를 true false로 받아옴
+				boolean result = new MemberService().changePwdCheck(userId);
+				
 				HttpSession session = request.getSession();
 
 				session.setAttribute("user", m);
-
+				//비밀번호 변경일이 90일이 지났을경우
+				if(result==true) {
+					response.sendRedirect("/views/member/passwordChange.jsp");
+				}else {
+				// 로그인 성공 결과 페이지 전송
 				response.sendRedirect("/views/member/success.jsp");
-
+				}
 			}
 			else {
+				//로그인 실패 결과 페이지 전송
 				response.sendRedirect("/views/member/activationFail.jsp");
 			}
 
