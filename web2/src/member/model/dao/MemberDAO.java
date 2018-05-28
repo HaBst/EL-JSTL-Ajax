@@ -118,7 +118,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = "insert into member values (?,?,?,?,?,?,?,?,?,sysdate,'Y')";
+		String query = "insert into member values (?,?,?,?,?,?,?,?,?,sysdate,'Y',sysdate)";
 
 		try {			
 			pstmt = conn.prepareStatement(query);
