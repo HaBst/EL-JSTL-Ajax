@@ -18,7 +18,7 @@ public class Member {
 	private String activation;
 	
 	public Member(String userId, String userPwd, String userName, int userAge, String userEmail, String userPhone,
-			String userAddr, String userGender, String userHobby, Date enrolldate, String activation) {
+			String userAddr, String userGender, String userHobby, String activation) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -29,7 +29,6 @@ public class Member {
 		this.userAddr = userAddr;
 		this.userGender = userGender;
 		this.userHobby = userHobby;
-		this.Enrolldate = enrolldate;
 		this.activation = activation;
 	}
 	public String getActivation() {
