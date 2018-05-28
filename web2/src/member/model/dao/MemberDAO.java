@@ -171,5 +171,27 @@ public class MemberDAO {
 		return result;
 	}
 
+	public int memberDelete(Connection conn,String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "delete from member where userid = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+
 
 }

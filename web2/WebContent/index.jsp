@@ -41,7 +41,12 @@
 	</form><br>
 	<a href = "/mypage">마이페이지</a><br>
 	<a href = "/logout">로그아웃</a><br>
-	<a href = "">회원탈퇴</a><br>
+	<a href = "/delete">회원탈퇴</a><br>
+	<label onclick = "drop();" id = "dropBtn">회원탈퇴</label>
+	<form action  = "/delete" method = "post" style = "display:none;" id = "delete">
+	<label style = "color:red:">비밀번호 입력:</label>
+	<input type = "password" name = "userPwd"/><input type = "submit" value = "확인"/>
+	</form><br>
 	
 	<%}} %>
 </body>
@@ -55,6 +60,9 @@
 <script>
 function myInfo(){
 	document.getElementById("myInfo").style="display:inline";
+}
+function drop(){
+	document.getElementById("delete").style="display:inline";
 }
 </script>
 </html>
