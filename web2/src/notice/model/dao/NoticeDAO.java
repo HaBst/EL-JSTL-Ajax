@@ -339,4 +339,35 @@ public class NoticeDAO {
 		return sb.toString();
 	}
 
+	public Notice noticeSelect(Connection conn, int noticeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from notice where noticeno=?";
+		Notice notice = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noticeNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				notice = new Notice();
+				notice.setNoticeNo(rset.getInt("noticeno"));
+				notice.setSubject(rset.getString("subject"));
+				notice.setContents(rset.getString("contents"));
+				notice.setUserId(rset.getString("userid"));
+				notice.setRegDate(rset.getDate("regdate"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return notice;
+	}
+
 }
