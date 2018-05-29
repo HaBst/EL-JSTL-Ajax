@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="notice.model.vo.*" import="java.util.*"%>
+    <%@ page import="notice.model.vo.*" import="java.util.*"%>
 <% 
 	PageData pd = (PageData)request.getAttribute("pageData"); 
 	ArrayList<Notice> list = pd.getNoticeList(); // PageData(vo)에 저장된 현재 페이지 리스트
@@ -10,11 +10,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공지사항 목록</title>
+<title>Insert title here</title>
 </head>
 <body>
 <center>
-<H1> 공지사항 </H1>
+<H1> 공지사항 검색 결과 </H1>
 <table border="1">
 	<tr><th>글번호</th><th>글제목</th><th>작성자</th><th>작성일</th></tr>
 <% for(Notice n : list){ %>
@@ -28,7 +28,7 @@
 </table>
 <label><%=pageNavi %></label><br>
 <form action = "searchSub" method = "get">
-<input type = "text" name = "searchSub">
+<input type = "text" name = "searchSub" value = <%=request.getAttribute("searchSub") %>>
 <input type = "submit" value = "검색">
 </form>
 </center>
