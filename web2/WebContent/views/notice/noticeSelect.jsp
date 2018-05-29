@@ -23,14 +23,25 @@
 		location.href="/notice";
 	}
 </script>
+
+<script>
+function deleteCheck() {
+    if(window.confirm("정말로 삭제하시겠습니까?")) {
+       return true;
+    } else {
+       return false;
+    }
+ }
+</script>
 <button onclick="back()">목록</button>
 <%if(session.getAttribute("user")!=null && ((Member)session.getAttribute("user")).getUserId().equals("admin")) { %>
 <form action = "/noticeUpdateReady" style="display : inline;">
 <input type = "hidden" name = "noticeNo" value = "<%=n.getNoticeNo() %>" />
 <input type = "submit" value = "수정"/>
 </form>
-<form style="display : inline;">
-<input type = "submit" value = "삭제"/>
+<form action = "/noticeDelete "style="display : inline;">
+<input type = "hidden" name = "noticeNo" value = "<%=n.getNoticeNo() %>" />
+<input type = "submit" onclick = "return deleteCheck()"value = "삭제"/>
 </form>
 <form style="display : inline;">
 <input type = "submit" value = "글쓰기"/>

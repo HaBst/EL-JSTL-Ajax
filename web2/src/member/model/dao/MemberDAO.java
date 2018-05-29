@@ -242,7 +242,6 @@ public class MemberDAO {
 					result = false;
 				}
 			}
-			System.out.println(rset);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
