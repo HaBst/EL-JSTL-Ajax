@@ -370,4 +370,31 @@ public class NoticeDAO {
 		return notice;
 	}
 
+	public int noticeUpdate(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		Notice notice = null;
+		
+		String query = "update notice set subject = ?,contents = ? where noticeno = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, n.getSubject());
+			pstmt.setString(2, n.getContents());
+			pstmt.setInt(3, n.getNoticeNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+
+
 }

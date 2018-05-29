@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="notice.model.vo.*" import="java.util.*"%>
+<%@ page import="notice.model.vo.*" import="java.util.*"
+		import = "member.model.vo.*" %>
 <% 
 	PageData pd = (PageData)request.getAttribute("pageData"); 
 	ArrayList<Notice> list = pd.getNoticeList(); // PageData(vo)에 저장된 현재 페이지 리스트
@@ -27,10 +28,16 @@
 <%} %>
 </table>
 <label><%=pageNavi %></label><br>
-<form action = "searchSub" method = "get">
+<form action = "searchSub" method = "get" style = "display:inline">
 <input type = "text" name = "searchSub">
 <input type = "submit" value = "검색">
 </form>
+<%if(session.getAttribute("user")!=null && ((Member)session.getAttribute("user")).getUserId().equals("admin")) {%>
+<form action = "/views/notice/noticeWriteReady.jsp" method = "post" style = "display:inline">
+<input type = "submit" value = "글 쓰기">
+</form>
+<%} %>
+
 </center>
 </body>
 </html>
