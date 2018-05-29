@@ -373,7 +373,6 @@ public class NoticeDAO {
 	public int noticeUpdate(Connection conn, Notice n) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		Notice notice = null;
 		
 		String query = "update notice set subject = ?,contents = ? where noticeno = ?";
 		
@@ -394,6 +393,30 @@ public class NoticeDAO {
 		}
 		return result;
 		
+	}
+
+	public int noticeWrite(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "insert into notice values(SEQ_NOTICE.nextval,?,?,?,sysdate)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, n.getSubject());
+			pstmt.setString(2, n.getContents());
+			pstmt.setString(3, n.getUserId());
+			
+			result= pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 
 

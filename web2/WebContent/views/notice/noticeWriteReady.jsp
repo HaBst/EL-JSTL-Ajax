@@ -7,13 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script>
+function back(){
+	history.go(-1);
+}
+</script>
 <H1> 게시물 작성 </H1><br><br>
-
+<form action = "/noticeWrite" method = "get">
 제목 : <input type = "text" name = "title" size = "90"><br><br>
 내용<br>
-<textarea rows="20" cols = "100" style = "resize:none;"></textarea><br><br>
-<form action = "noticeWrite" method = "get">
+<textarea rows="20" cols = "100" style = "resize:none;" name  = "contents"></textarea><br><br>
+
 <input type = "submit" value = "작성하기">
+<button onclick = "back()">돌아가기</button>
 </form>
 </body>
 </html>

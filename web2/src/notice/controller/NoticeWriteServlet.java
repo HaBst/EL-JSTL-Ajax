@@ -1,11 +1,17 @@
 package notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.vo.Member;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeWriteServlet
@@ -26,8 +32,26 @@ public class NoticeWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("user")!=null && ((Member)session.getAttribute("user")).getUserId().equals("admin")) {
+			Notice n = new Notice();
+			n.setUserId(((Member)session.getAttribute("user")).getUserId());
+			n.setSubject(request.getParameter("title"));
+			n.setContents(request.getParameter("contents"));			
+			
+			int result = new NoticeService().noticeWrite(n);
+			if(result > 0) {
+				response.sendRedirect("/notice");
+			}else {
+				response.sendRedirect("/views/notice/Error.html");
+			}
+			
+		}else {
+			response.sendRedirect("/views/notice/Error.html");
+		}
+			
 	}
 
 	/**

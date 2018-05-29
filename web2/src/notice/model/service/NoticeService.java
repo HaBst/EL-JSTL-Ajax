@@ -91,4 +91,18 @@ public class NoticeService {
 		
 	}
 
+	public int noticeWrite(Notice n) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NoticeDAO().noticeWrite(conn,n);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+		return result;
+	}
+
 }
