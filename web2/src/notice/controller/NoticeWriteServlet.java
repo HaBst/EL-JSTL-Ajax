@@ -1,6 +1,7 @@
 package notice.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,7 @@ public class NoticeWriteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+//		response.setContentType("text/html; charset = utf-8");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("user")!=null && ((Member)session.getAttribute("user")).getUserId().equals("admin")) {
@@ -42,7 +44,12 @@ public class NoticeWriteServlet extends HttpServlet {
 			n.setContents(request.getParameter("contents"));			
 			
 			int result = new NoticeService().noticeWrite(n);
+			PrintWriter out = response.getWriter();
 			if(result > 0) {
+//				out.println("<html><head></head><body>");
+//				out.println("<script>alert('작성 완료')"
+//						+ " location.href='/notice';</script>");
+//				out.println("</body></html>");
 				response.sendRedirect("/notice");
 			}else {
 				response.sendRedirect("/views/notice/Error.html");

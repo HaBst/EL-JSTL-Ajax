@@ -33,7 +33,7 @@ function deleteCheck() {
     }
  }
 </script>
-<button onclick="back()">목록</button>
+<button onclick="back();">목록</button>
 <%if(session.getAttribute("user")!=null && ((Member)session.getAttribute("user")).getUserId().equals("admin")) { %>
 <form action = "/noticeUpdateReady" style="display : inline;">
 <input type = "hidden" name = "noticeNo" value = "<%=n.getNoticeNo() %>" />
