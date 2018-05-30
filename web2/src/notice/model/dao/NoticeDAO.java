@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import notice.model.vo.Notice;
+import notice.model.vo.NoticeComment;
 
 public class NoticeDAO {
 
@@ -440,6 +441,108 @@ public class NoticeDAO {
 
 		return result;
 	}
+
+	public ArrayList<NoticeComment> noticeComment(Connection conn, int noticeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<NoticeComment>list = new ArrayList<NoticeComment>();
+		String query = "select * from noticecomment where noticeno=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				NoticeComment nc = new NoticeComment();
+				nc.setCommentNo(rset.getInt("commentno"));
+				nc.setNoticeNo(rset.getInt("noticeno"));
+				nc.setContent(rset.getString("content"));
+				nc.setUserId(rset.getString("userid"));
+				nc.setRegDate(rset.getDate("regdate"));
+				list.add(nc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int noticeCommentUpload(Connection conn, NoticeComment nc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "insert into noticecomment values(SEQ_noticecomment.nextval,?,?,?,sysdate)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, nc.getNoticeNo());
+			pstmt.setString(2, nc.getContent());
+			pstmt.setString(3, nc.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int commentDelete(Connection conn, int commentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "delete noticecomment where commentno = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, commentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateComment(Connection conn, String comment, int commentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "update noticecomment set content = ? where commentno = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, comment);
+			pstmt.setInt(2, commentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+
 
 
 }

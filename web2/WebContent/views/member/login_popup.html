@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+</head>
+<body>
+<fieldset style = "width : 300px; height:100px;">
+	
+	<legend>로그인</legend>
+	<form action = "/login" method = "post" style = "display:inline;">
+	ID : <input type = "text" placeholder = "ID를 입력하세요" name = "userId"/><br>
+	PW : <input type = "password" placeholder = "PW를 입력하세요" name = "userPwd"/><br>
+	<input type = "submit" value = "로그인"/>
+	</form>
+	<a href="/views/member/joinus.html">회원가입</a> <!-- 톰캣설정에서 web2를 '/'로 설정했기 때문에 '/'가 최상위가 됨 -->
+	<a href="">ID 찾기</a>
+	<a href="">PW 찾기</a>
+
+</fieldset>
+
+</body>
+</html>

@@ -7,6 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+	window.onload = function(){
+		if(opener!=null){ // 자신이 팝업창 일때(팝업창일경우opener는 null 일반 창일경우 opener는 !null)
+			opener.location.reload(); // 페이지 새로고침(opener는 부모 -> 팝업창을 뜨게 하는 매개체)
+			window.close();
+		}
+	}
+</script>
 <body>
 <%Member m = (Member)session.getAttribute("user"); %>
 <h1>성공페이지</h1>

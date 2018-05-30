@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import notice.model.dao.NoticeDAO;
 import notice.model.vo.Notice;
+import notice.model.vo.NoticeComment;
 import notice.model.vo.PageData;
 
 public class NoticeService {
@@ -67,35 +68,35 @@ public class NoticeService {
 
 	public Notice noticeSelect(int noticeNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		
+
 		Notice notice = new NoticeDAO().noticeSelect(conn,noticeNo);
-		
+
 		JDBCTemplate.connclose(conn);
 		return notice;
-		
+
 	}
 
 	public int noticeUpdate(Notice n) {
 		Connection conn  = JDBCTemplate.getConnection();
-		
+
 		int result = new NoticeDAO().noticeUpdate(conn,n);
-		
+
 		if(result >0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
-		
+
 		JDBCTemplate.connclose(conn);
 		return result;
-		
+
 	}
 
 	public int noticeWrite(Notice n) {
 		Connection conn = JDBCTemplate.getConnection();
-		
+
 		int result = new NoticeDAO().noticeWrite(conn,n);
-		
+
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -107,9 +108,9 @@ public class NoticeService {
 
 	public int noticeDelete(int noticeNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		
+
 		int result = new NoticeDAO().noticeDelete(conn,noticeNo);
-		
+
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -118,5 +119,62 @@ public class NoticeService {
 		JDBCTemplate.connclose(conn);
 		return result;
 	}
+
+	public ArrayList<NoticeComment> noticeComment(int noticeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<NoticeComment> list = new NoticeDAO().noticeComment(conn,noticeNo);
+
+		JDBCTemplate.connclose(conn);
+		return list;
+
+	}
+
+	public int noticeCommentUpload(NoticeComment nc) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new NoticeDAO().noticeCommentUpload(conn,nc);
+
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+		return result;
+
+	}
+
+	public int commentDelete(int commentNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new NoticeDAO().commentDelete(conn,commentNo);
+
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+		
+		return result;
+	}
+
+	public int updateComment(String comment, int commentNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NoticeDAO().updateComment(conn,comment,commentNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+		
+		return result;
+	}
+
+
 
 }

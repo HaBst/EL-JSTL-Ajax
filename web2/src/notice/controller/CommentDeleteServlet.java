@@ -2,7 +2,6 @@ package notice.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,21 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.model.vo.Member;
 import notice.model.service.NoticeService;
-import notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeUpdateReadyServlet
+ * Servlet implementation class CommentDeleteServlet
  */
-@WebServlet(name = "NoticeUpdateReady", urlPatterns = { "/noticeUpdateReady" })
-public class NoticeUpdateReadyServlet extends HttpServlet {
+@WebServlet(name = "CommentDelete", urlPatterns = { "/commentDelete" })
+public class CommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateReadyServlet() {
+    public CommentDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +30,22 @@ public class NoticeUpdateReadyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 		//2. view에서 보낸 데이터를 변수에 저장
-		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		HttpSession session = request.getSession();
 		
-		Notice notice = null;
-		HttpSession session = request.getSession(false);
-		
-		if(session.getAttribute("user")!=null&&((Member)session.getAttribute("user")).getUserId().equals("admin"))
-		{
-		//3. 비즈니스 로직
-		 notice =new NoticeService().noticeSelect(noticeNo);
-		}
-		//4. View에 결과 출력
-		if(notice!=null) {
-			RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeUpdateReady.jsp");
-			request.setAttribute("notice", notice);
-			view.forward(request, response);
-		}else
-		{
-			response.sendRedirect("/views/notice/noticeError.html");
+		if(session.getAttribute("user") != null) {
+			int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+			int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+			
+			int result = new NoticeService().commentDelete(commentNo);
+			
+			if(result > 0) {
+				response.sendRedirect("/noticeSelect?noticeNo="+noticeNo);
+			}else {
+				response.sendRedirect("/views/notice/Error.html");
+			}
+			
+		}else {
+			response.sendRedirect("/views/notice/Error.html");
 		}
 	}
 
