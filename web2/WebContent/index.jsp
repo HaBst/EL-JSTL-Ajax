@@ -47,7 +47,7 @@
 	<label style = "color:red:">비밀번호 입력:</label>
 	<input type = "password" name = "userPwd"/><input type = "submit" value = "확인"/>
 	</form><br>
-	
+	<a href = "/views/file/upload.html">업로드</a>
 	<%}} %>
 	<br>
 	<a href="/notice">공지사항</a>
