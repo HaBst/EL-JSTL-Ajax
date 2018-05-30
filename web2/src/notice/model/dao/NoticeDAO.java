@@ -523,7 +523,7 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = "update noticecomment set content = ? where commentno = ?";
+		String query = "update from noticecomment set content = ? where commentno = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
