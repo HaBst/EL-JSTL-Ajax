@@ -188,4 +188,25 @@ public class FileDAO {
 		return df2;
 	}
 
+	public int fileDelete(Connection conn, String fileName, Timestamp uploadTime) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String Query = "delete from filetbl where filename = ? and uploadtime = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(Query);
+			pstmt.setString(1, fileName);
+			pstmt.setTimestamp(2, uploadTime);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

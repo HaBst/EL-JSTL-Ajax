@@ -24,7 +24,8 @@
 	<input type = "hidden" name = "uploadTime" value = "<%=df.getUploadTime()%>" >
 	<input type = "submit" value = "다운로드"></form></td>
 	<td><form action = "/fileRemove" method = "post">
-	
+	<input type = "hidden" name = "fileName" value = "<%=df.getFileName() %>">
+	<input type = "hidden" name = "uploadTime" value = "<%=df.getUploadTime()%>" >
 	<input type = "submit" value = "파일삭제"></form></td>
 </tr>
 <%} %>

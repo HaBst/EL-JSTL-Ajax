@@ -80,4 +80,19 @@ public class FileService {
 		return df2;
 	}
 
+	public int fileDelete(String fileName, Timestamp uploadTime) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new FileDAO().fileDelete(conn,fileName,uploadTime);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+
+		return result;
+	}
+
 }
