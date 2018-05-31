@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 업로드</title>
+</head>
+<body>
+<form action="/upload2" method = "post" enctype = "multipart/form-data" style = "display:inline;">
+파일 선택 : <input type = "file" name = "upfile"/><br><br>
+<input type = "submit" value = "업로드"/>
+<input type = "reset" value = "취소"/>
+
+</form>
+<button onclick = "back();">뒤로가기</button>
+<script>
+	function back(){
+		location.href = "/index.jsp";
+	}
+</script>
+</body>
+</html>
