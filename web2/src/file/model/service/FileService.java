@@ -1,6 +1,7 @@
 package file.model.service;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -31,6 +32,17 @@ public class FileService {
 		JDBCTemplate.connclose(conn);
 		
 		return list;		
+	}
+
+	public DataFile fileSelectDownload(String fileName, Timestamp uploadTime) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		DataFile df = new FileDAO().fileSelectDownload(conn,fileName,uploadTime);
+		
+		JDBCTemplate.connclose(conn);
+		
+		return df;
+		
 	}
 
 }

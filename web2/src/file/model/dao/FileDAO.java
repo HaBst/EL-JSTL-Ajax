@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -63,6 +64,36 @@ public class FileDAO {
 			JDBCTemplate.close(stmt);
 		}
 		return list;
+	}
+
+	public DataFile fileSelectDownload(Connection conn, String fileName, Timestamp uploadTime) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		DataFile df = null;
+		String query = "select * from fileTbl where fileName = ? and uploadTime = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, fileName);
+			pstmt.setTimestamp(2, uploadTime);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				df = new DataFile();
+				df.setFileName(rset.getString("filename"));
+				df.setFilePath(rset.getString("filepath"));
+				df.setFilesize(rset.getLong("filesize"));
+				df.setFileUser(rset.getString("fileuser"));
+				df.setUploadTime(rset.getTimestamp("uploadtime"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return df;
 	}
 
 }
