@@ -19,14 +19,12 @@
 	<td><%=df.getFilesize() %></td>
 	<td><%=df.getFileUser() %></td>
 	<td><%=df.getUploadTime() %></td>
-	<td><button>다운로드</button></td>
-	<td><button>파일삭제</button></td>
+	<td><form action = "/fileDown" method = "post">
+	<input type = "submit" value = "다운로드"></form></td>
+	<td><form action = "/fileRemove" method = "post">
+	<input type = "submit" value = "파일삭제"></form></td>
 </tr>
 <%} %>
-
-
-
-
 </table>
 
 
