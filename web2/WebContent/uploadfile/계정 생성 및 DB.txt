@@ -1,0 +1,31 @@
+## system계정에서 생성 ##
+
+create user Member_mgr identified by Member_mgr;
+
+grant resource,connect to Member_mgr;
+
+commit;
+
+
+
+
+## Member_mgr 계정에서 생성 ##
+
+create table member(
+userid varchar(20) primary key,
+userpwd varchar(20) not null,
+username varchar(20) not null,
+age number ,
+email varchar(30) not null,
+phone varchar(13) not null,
+address varchar(50),
+gender varchar(1) not null,
+hobby varchar(30),
+enrolldate date
+);
+
+insert into member values('mslove','1234','노민수',20,'mslove@kh.org','010-1111-2222','경기도 부천시 442-1','M','운동,노래',SYSDATE);
+
+commit;
+
+SELECT * FROM member;
