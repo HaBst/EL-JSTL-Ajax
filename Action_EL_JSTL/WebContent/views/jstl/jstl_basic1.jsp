@@ -88,6 +88,15 @@ ${c} + ${d} = ${c+d}<br><br>
 </c:forEach>
 <br>
 
+<c:forEach begin = "0" items="${list}" var="m" varStatus="i">
+	${i.count}번째 학생
+	이름 : ${m.name}
+	나이 : ${m.age}
+	주소 : ${m.addr}
+	<br><br>
+</c:forEach>
+<br>
+
 
 
 
