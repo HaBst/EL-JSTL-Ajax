@@ -80,6 +80,20 @@ ${c} + ${d} = ${c+d}<br><br>
 	그외를 선택하였습니다.<br>
 	</c:otherwise>
 </c:choose>
+<br>
+
+
+<c:forEach begin="1" end="10" var="i">
+	${i}
+</c:forEach>
+<br>
+
+
+
+
+
+
+
 
 
 
