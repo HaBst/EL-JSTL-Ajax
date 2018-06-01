@@ -42,10 +42,10 @@ public class FileRemoveServlet extends HttpServlet {
 		
 		if(df != null) {
 	
-			File file = new File(df.getFilePath());
-			file.delete();
 			int result = new FileService().fileDelete(fileName,uploadTime);
 			if(result > 0) {
+				File file = new File(df.getFilePath());
+				file.delete();
 				response.sendRedirect("views/file/fileDeleteSuccess.jsp");
 			}
 		}else {

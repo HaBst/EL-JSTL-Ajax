@@ -23,8 +23,8 @@
 	<input type = "hidden" name = "afterName" value = "<%=df2.getAfterFileName() %>" >
 	<input type = "hidden" name = "uploadTime" value = "<%=df2.getUploadTime() %>" >
 	<input type = "submit" value = "다운로드"></form></td>
-	<td><form action = "/fileRemove" method = "post">
-	
+	<td><form action = "/fileRemove2" method = "post">
+	<input type = "hidden" name = "afterFileName" value = "<%=df2.getAfterFileName() %>">
 	<input type = "submit" value = "파일삭제"></form></td>
 </tr>
 <%} %>

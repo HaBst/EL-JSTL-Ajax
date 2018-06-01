@@ -157,16 +157,15 @@ public class FileDAO {
 		
 	}
 
-	public DataFile2 fileSelect2Download(Connection conn, String afterFileName, Timestamp uploadTime) {
+	public DataFile2 fileSelect2Download(Connection conn, String afterFileName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		DataFile2 df2 = null;
-		String query = "select * from fileTbl2 where afterfileName = ? and uploadTime = ?";
+		String query = "select * from fileTbl2 where afterfileName = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, afterFileName);
-			pstmt.setTimestamp(2, uploadTime);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -206,6 +205,26 @@ public class FileDAO {
 			JDBCTemplate.close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int fileDelete2(Connection conn, String afterFileName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String Query = "delete from filetbl2 where afterfilename = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(Query);
+			pstmt.setString(1, afterFileName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
 		return result;
 	}
 

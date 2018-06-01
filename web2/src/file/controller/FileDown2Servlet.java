@@ -39,10 +39,10 @@ public class FileDown2Servlet extends HttpServlet {
 
 		// 파일 다운로드를 받기 위하여 정보 2가지
 		String afterFileName = request.getParameter("afterName");
-		Timestamp uploadTime = Timestamp.valueOf(request.getParameter("uploadTime"));
+
 //		System.out.println(uploadTime);
 //		System.out.println(fileName);
-		DataFile2 df2 = new FileService().fileSelect2Download(afterFileName,uploadTime);
+		DataFile2 df2 = new FileService().fileSelect2Download(afterFileName);
 //		System.out.println(df.getFileName());
 
 		if(df2 !=null) {

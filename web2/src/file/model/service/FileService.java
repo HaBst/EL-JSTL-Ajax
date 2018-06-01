@@ -70,10 +70,10 @@ public class FileService {
 		return list;
 	}
 
-	public DataFile2 fileSelect2Download(String afterFileName, Timestamp uploadTime) {
+	public DataFile2 fileSelect2Download(String afterFileName) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		DataFile2 df2 = new FileDAO().fileSelect2Download(conn,afterFileName,uploadTime);
+		DataFile2 df2 = new FileDAO().fileSelect2Download(conn,afterFileName);
 		
 		JDBCTemplate.connclose(conn);
 		
@@ -93,6 +93,22 @@ public class FileService {
 		JDBCTemplate.connclose(conn);
 
 		return result;
+	}
+
+	public int fileDelete2(String afterFileName) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new FileDAO().fileDelete2(conn,afterFileName);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.connclose(conn);
+
+		return result;
+		
 	}
 
 }
