@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>시작</title>
+</head>
+<body>
+<h1>Action</h1>
+기본 페이지<br>
+<a href = "/views/action/jsp_include.jsp">1. Action Tag(include)</a><br>
+<a href = "/views/action/jsp_forward.jsp">2. Action Tag(forward)</a><br>
+3. forward 응용
+<form action="/views/action/jsp_forward2.jsp" method = "get"
+style = "displat:inline;">
+<input type = "text" name = "value"/>
+<input type = "submit" value = "전송"/>
+</form><br>
+<a href = "/views/action/jsp_useBean.jsp">4. ActionTag(Bean)</a><br>
+<a href = "/useBean">5. userBean 응용</a>
+<hr>
+<h1>EL</h1>
+<a href = "/eL_Test1">1. 단일 VO 처리</a><br>
+<a href = "/eL_Test2">2. MAP 처리</a><br>
+<a href = "/eL_Test3">3. 배열 처리</a><br>
+<a href = "/eL_Test4">4. List 처리</a><br>
+<hr>
+<h1>JSTL</h1>
+<a href="/views/jstl/jstl_basic1.jsp">1. JSTL 기초1</a>
+</body>
+</html>
