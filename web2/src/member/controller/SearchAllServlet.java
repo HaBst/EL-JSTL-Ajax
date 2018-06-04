@@ -38,12 +38,9 @@ public class SearchAllServlet extends HttpServlet {
 
 		if((session.getAttribute("user")!=null) && ((Member)session.getAttribute("user")).getUserId().equals("admin"))
 		{
-
 			ArrayList<Member> list = new MemberService().searchAll();
 
 			if(list.isEmpty()) {
-
-
 			}
 			else{	
 				RequestDispatcher view = request.getRequestDispatcher("/views/member/allMember.jsp");
@@ -51,7 +48,6 @@ public class SearchAllServlet extends HttpServlet {
 				view.forward(request,response);
 			}
 		}
-
 		else
 		{
 			response.sendRedirect("/views/member/Error.html");

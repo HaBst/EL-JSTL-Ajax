@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<h1 align="center">jQuery를 이용한 Ajax 테스트</h1>
+
+<h2>1.서버에게 값 전송</h2>
+이름 : <input type = "text" id = "myName" />
+<button onclick="test1();">클릭</button>
+<br>
+<hr>
+<script>
+function test1(){
+	//값 가져오기
+	var myName = $("#myName").val();
+	
+	// jQuery Ajax 코드
+	$.ajax({
+		url : "/test1",
+		data : {name : myName},//key,value
+		type : "get",
+		success : function(){
+			console.log("서버로 값 전송 성공"); //200코드
+		},
+		error : function(){
+			console.log("서버로 값 전송 실패"); // 404 or 500코드
+		},
+		complete : function(){
+			console.log("성공이든 실패든 무조건 호출 됨"); // finally
+		}
+	});
+}
+</script>
+
+
+<h2>2. 버튼 클릭시 서버에서 보낸값을 브라우저에서 출력</h2>
+<button onclick = "test2();">클릭하세요</button><br>
+<p id="p1" style="width:300px; height:50px; border:1px solid red"></p>
+
+<script>
+	function test2(){
+		$.ajax({
+			url : "/test2",
+			type : "get",
+			success : function(data){ //data는 서버에서 보낸 값
+				$('#p1').text(data);
+				
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+	}
+</script>
+<br>
+<hr>
+
+<h2>3. 서버로 기본값 전송하고, 결과를 받아 출력</h2>
+
+첫번째 수 : <input type = "text" id = "su1"/><br>
+두번째 수 : <input type = "text" id = "su2"/><br>
+
+결과 : <p id = "result3" style = "width:300px; height:50px; border:1px solid red;"></p><br>
+<button onclick = "test3();">결과 확인</button>
+
+<script>
+	function test3(){
+		
+		var su1 = $("#su1").val();
+		var su2 = $("#su2").val();
+		
+		$.ajax({
+			url : "/test3",
+			data : {su1 : su1, su2 : su2},
+			type : "get",
+			success : function(data){
+				$('#result3').text(data);
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+	}
+</script>
+<br>
+<hr>
+
+<h2>4. 서버로 Object 형태의 데이터 전송, 서버에서 처리후</h2>
+이름 : <input type = "text" id = "studentName"/><br>
+나이 : <input type = "text" id = "studentAge"/><br>
+주소 : <input type = "text" id = "studentAddr"/><br>
+<button onclick = "test4()">결과 확인</button>
+
+<script>
+	function test4(){
+		var studentName = $('#studentName').val();
+		var studentAge = $('#studentAge').val();
+		var studentAddr = $('#studentAddr').val();
+		
+		var student = {name : studentName, age : studentAge, addr : studentAddr};
+		
+		$.ajax({
+			url : "/test4",
+			type : "get",
+			data : student,
+			success : function(){
+				console.log("성공");
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+		
+	}
+</script>
+<br><hr>
+
+<h2>5. 서버에게 기본 데이터 전송후 객체 리턴</h2>
+유저 번호 입력 : <input type = "text" id = "userIndex" onchange = "test5();"/>
+<p id = "result5" style = "width:300px; height:70px; border:1px solid red;"></p><br>
+<hr>
+
+<!-- 
+	서버에서 만든 객체를 자바스크립트에서 처리할 수 없음
+	그렇기 때문에 우리는 서버와 자바스크립트가 공통적으로 인식할 수 있는
+	객체 타입을 사용 해야 함
+	그것을 JSON 객체라고 부름
+	
+	## JSON 이란? ##
+	-> JavaScript Object Notation의 약자
+		- 자바에서 객체를 표현하기 위한 표기법
+		- 자바에서 만든 객체를 자바스크립트에서 사용하려면
+		JSON 객체를 사용 해야 함
+ -->
+<script>
+	function test5(){
+		var userIndex = $('#userIndex').val(); //입력값 가져오기
+		$.ajax({
+			url : "/test5",
+			type : "get",
+			data : {userIndex:userIndex},
+			success : function(data){
+				console.log("성공");
+				$('#result5').html("이름 : "+data.name + "<br>"
+						+"나이 : "+data.age+"<br>"
+						+"주소 : "+data.addr+"<br>"
+					);
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+	}
+</script>
+
+<h2>6. 기본값을 전송, 서버에서 리스트 객체 반환</h2>
+<h6>(유저번호 요청해서 유저 번호가 있으면 유저 정보, 없으면 전체 리턴)</h6>
+유저 정보(순번) : <input type = "text" id = "userIndex2"  onchange = "test6();"/>
+<p id = "result6" style = "width:300px; height:250px; border:1px solid red;"></p><br>
+<hr>
+
+<script>
+	function test6(){
+		var userIndex2 = $('#userIndex2').val(); // 입력값 가져오기
+		
+		$.ajax({
+			url : "/test6",
+			data : {userIndex2 : userIndex2},
+			type : "get",
+			success : function(data){
+				console.log("성공");
+				var result = "";
+				for(var i = 0; i<data.length; i++){
+					result += "이름 : "+data[i].name+" / "
+							+"나이 : "+data[i].age+" / "
+							+"주소 : "+data[i].addr+"<br>";
+				}
+				$('#result6').html(result);
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+	}
+</script>
+
+
+<h2>7. 번호 여러개 전송하여 여러개의 리스트 반환</h2>
+유저 정보(번호, 번호, 번호...) : 
+<input type = "text" id = "userIndexs" onchange="test7();"/>
+<p id = "result7" style = "width:300px; height:250px; border:1px solid red;"></p><br>
+<hr>
+
+<script>
+	function test7(){
+		var userIndexs = $('#userIndexs').val();
+		
+		$.ajax({
+			url : "/test7",
+			data : {userIndexs:userIndexs},
+			type : "get",
+			success : function(data){
+				console.log("성공");
+				var result = "";
+				for(var i = 0; i<data.length; i++){
+					result += "이름 : "+data[i].name+" / "
+							+"나이 : "+data[i].age+" / "
+							+"주소 : "+data[i].addr+"<br>";
+				}
+				$('#result7').html(result);
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+	}
+</script>
+
+<h2>8. 서버로 기본형 데이터 여러개 전송, 서버에서 맵 형태의 객체 리턴</h2>
+유저 정보(번호, 번호, 번호...) : 
+<input type = "text" id = "userIndexs2" onchange="test8();"/>
+<p id = "result8" style = "width:300px; height:250px; border:1px solid red;"></p><br>
+<hr>
+
+<script>
+function test8(){
+	var userIndexs2 = $('#userIndexs2').val(); //입력 값 가져오기
+	$.ajax({
+		url : "/test8",
+		data : {userIndexs2:userIndexs2},
+		type : "get",
+		success : function(data){
+			console.log("성공");
+			var result = "";
+			// MAP 형태로 꺼내려면 키 값을 먼저 추출해야 함
+			var keys = Object.keys(data);
+			
+			//JSON을 MAP 형태로 데이터를 꺼내 오려면
+			// data[키] 형태로 사용 해야 함
+			
+			for(var i = 0; i < keys.length; i++){
+				result += "이름 : "+data[keys[i]].name+" / "
+				+"나이 : "+data[keys[i]].age+" / "
+				+"주소 : "+data[keys[i]].addr+"<br>";
+			}
+			$('#result8').html(result);
+		},
+		error : function(){
+			console.log("실패");
+		}
+	});
+}
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

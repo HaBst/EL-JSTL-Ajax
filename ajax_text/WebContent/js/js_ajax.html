@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function test1(){
+	var data = document.getElementById("data1").value; //입력 값
+	// Ajax 처리 순서 4단계
+	// 1. XMLHttpRequest 객체 생성
+	// 2. 요청 정보 설정
+	// 3. 데이터 처리에 따른 작동할 메소드 설정(콜백 함수)
+	// 4. 서버에게 요청 처리
+	
+	// 1. XMLHttpRequest 객체 생성
+	// IE7이상 9미만 버전일때 혹은 크롬, 사파리 등등 일때
+	var xhttp = new XMLHttpRequest(); 
+	
+	// IE버전이 6버전 이하 일때
+	// var xhttp = new ActiveXObject(Microsoft.XMLHTTP);
+	// IE버전이 9버전 이후 일때
+	// var xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	
+	
+	// 2. 요청 정보 설정 (method방식, url정보, 동기/비동기 설정)
+	// GET 방식과 POST 방식이 있음
+	// 마지막 false/true 값은 동기/비동기 값을 의미함
+	// 당연히 Ajax 처리이기 때문에 무조건 true값을 사용 (비동기 처리)
+	// GET방식
+	xhttp.open("GET","/jsTest1?data="+data,true);
+	
+	// POST 방식
+	// xhttp.open("POST","/jsTest1",true);
+	// POST 방식은 나중에 send 메소드 호출시에 값을 넘겨줌
+	
+	
+	// 3. 데이터 처리에 따른 작동할 메소드 설정
+	// readyState값
+	// 0:요청이 시작되지 않은 상태
+	// 1:서버와 접속된 상태
+	// 2:send 메소드가 호출되고 헤더는 도착하지 않은 상태
+	// 3:일부 데이터를 받은 상태
+	// 4:요청을 완료하고 응답하는 상태
+	
+	// status 속성 값
+	// 200 (OK) : 요청 성공
+	// 404 (Not Found) : 페이지 없음
+	// 500 (Internal Server Error) : 서버 오류 발생 등등...
+	xhttp.onreadystatechange = function(){
+		if(this.readyState==4){
+			if(this.status==200){
+				console.log("서버에 데이터 전송 성공");
+				var result = xhttp.responseText;
+				if(result =='1'){
+					document.getElementById('span1').innerHTML = "사용 불가능한 아이디 입니다.";
+					document.getElementById('span1').style = "color:red";
+				}else{
+					document.getElementById('span1').innerHTML = "사용 가능한 아이디 입니다.";
+					document.getElementById('span1').style = "color:blue";
+				}
+				
+			}else if(this.status==404){
+				console.log("서버에 데이터 전송 실패");
+			}
+		}
+	}
+	
+	
+	// 4. 서버에게 요청 처리
+	xhttp.send(); //GET 방식
+	
+	//POST 방식 (POST 방식은 requestHeader를 변경해야 함)
+	// xhhtp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	// xhttp.send("data="+data);
+}
+</script>
+
+ID : <input type = "text" id = "data1" onchange="test1();"/><span id = "span1"></span>
+<!-- <button onclick="test1();">클릭</button> -->
+</body>
+</html>
